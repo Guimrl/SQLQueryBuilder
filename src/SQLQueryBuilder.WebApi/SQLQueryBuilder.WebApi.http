@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8080
+
+### Get a Hello World greeting
+GET {{baseUrl}}/api/hello
+Accept: application/json
+
+### List public tables
+GET {{baseUrl}}/api/Tables
+Accept: application/json

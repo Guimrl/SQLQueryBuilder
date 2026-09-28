@@ -2,5 +2,4 @@
 **/obj/
 .env
 .vs/
-.vscode/
 *.user
