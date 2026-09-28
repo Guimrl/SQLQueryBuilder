@@ -1,0 +1,12 @@
+payload: {
+  "tabela": "Produtos",
+  "colunas": ["Nome", "Preco"],
+  "condicoes": [
+    { "coluna": "Categoria", "operador": "=", "valor": "Eletrônicos" },
+    { "coluna": "Preco", "operador": ">=", "valor": 1000 }
+  ],
+  "ordenacao": [
+    { "coluna": "Preco", "direcao": "DESC" }
+  ],
+  "limite": 10
+}

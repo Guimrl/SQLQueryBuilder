@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+.git/
+.env
+README.md
+especificacao.md
+ideias.txt
