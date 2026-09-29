@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace SQLQueryBuilder.WebApi.Routing;
 
-public sealed class ApiRoutePrefixConvention(string prefix) : IApplicationModelConvention
+public class ApiRoutePrefixConvention(string prefix) : IApplicationModelConvention
 {
     public void Apply(ApplicationModel application)
     {

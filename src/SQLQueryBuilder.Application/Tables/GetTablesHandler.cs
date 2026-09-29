@@ -1,11 +1,16 @@
 namespace SQLQueryBuilder.Application.Tables;
 
-public sealed class GetTablesHandler(ITablesRepository tablesRepository)
+public class GetTablesHandler : IGetTablesHandler
 {
-    public Task<IReadOnlyList<string>> HandleAsync(
+    public async Task<GetTablesResponse> Handle(
         GetTablesCommand command,
+        ITablesRepository tablesRepository,
         CancellationToken cancellationToken)
     {
-        return tablesRepository.GetTablesAsync(command.Filters, cancellationToken);
+        var tables = await tablesRepository.GetTablesAsync(command.Filters, cancellationToken);
+        return new GetTablesResponse
+        {
+            Name = tables.Select(name => name).ToArray()
+        };
     }
 }

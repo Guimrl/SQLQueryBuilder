@@ -1,3 +1,6 @@
 namespace SQLQueryBuilder.Application.Tables;
 
-public sealed record GetTablesCommand(GetTablesFilters Filters);
+public record GetTablesCommand
+{
+    public GetTablesFilters Filters { get; init; } = new();
+}

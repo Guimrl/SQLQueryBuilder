@@ -1,9 +1,27 @@
 @baseUrl = http://localhost:8080
 
-### Get a Hello World greeting
-GET {{baseUrl}}/api/hello
-Accept: application/json
-
 ### List public tables
 GET {{baseUrl}}/api/Tables
 Accept: application/json
+
+### List columns from a table
+GET {{baseUrl}}/api/Columns?tableName=clientes
+Accept: application/json
+
+### Generate a SELECT query
+POST {{baseUrl}}/api/Queries/Generate
+Content-Type: application/json
+
+{
+  "table": "clientes",
+  "alias": "c",
+  "columns": ["id", "nome"],
+  "orderBy": [
+    { "column": "nome", "direction": "ASC" },
+    { "column": "criado_em", "direction": "DESC" }
+  ],
+  "where": [
+    { "column": "nome", "operator": "contains", "value": "Ana" },
+    { "column": "id", "operator": "greaterThan", "value": 0 }
+  ]
+}

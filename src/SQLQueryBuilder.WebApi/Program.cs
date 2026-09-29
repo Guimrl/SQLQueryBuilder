@@ -1,6 +1,7 @@
-using Npgsql;
-using SQLQueryBuilder.Application.Tables;
-using SQLQueryBuilder.Infra.Repository;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SQLQueryBuilder.Application.Queries;
+using SQLQueryBuilder.WebApi.Extensions;
 using SQLQueryBuilder.WebApi.Routing;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,14 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("Configure ConnectionStrings:DefaultConnection.");
-
-builder.Services.AddSingleton(NpgsqlDataSource.Create(connectionString));
-builder.Services.AddScoped<ITablesRepository, TablesRepository>();
-builder.Services.AddScoped<GetTablesHandler>();
+builder.AddHandlers();
+builder.AddRepositories();
 builder.Services.AddControllers(options =>
-    options.Conventions.Insert(0, new ApiRoutePrefixConvention("api")));
+    options.Conventions.Insert(0, new ApiRoutePrefixConvention("api")))
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter<WhereOperator>(JsonNamingPolicy.CamelCase, allowIntegerValues: false)));
 
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
@@ -31,6 +31,8 @@ var app = builder.Build();
 
 app.UseExceptionHandler();
 app.UseStatusCodePages();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {

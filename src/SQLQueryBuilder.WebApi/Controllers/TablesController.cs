@@ -5,18 +5,18 @@ namespace SQLQueryBuilder.WebApi.Controllers;
 
 [ApiController]
 [Route("Tables")]
-public sealed class TablesController : ControllerBase
+public class TablesController : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<string>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IReadOnlyList<string>>> GetTables(
-        [FromServices] GetTablesHandler handler,
-        [FromQuery] GetTablesFilters filters,
+    [ProducesResponseType(typeof(GetTablesResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTables(
+        [FromQuery] GetTablesCommand command,
+        [FromServices] IGetTablesHandler handler,
+        [FromServices] ITablesRepository tablesRepository,
         CancellationToken cancellationToken)
     {
-        var command = new GetTablesCommand(filters);
-        var tables = await handler.HandleAsync(command, cancellationToken);
+        var result = await handler.Handle(command, tablesRepository, cancellationToken);
 
-        return Ok(tables);
+        return Ok(result);
     }
 }

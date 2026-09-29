@@ -3,7 +3,7 @@ using SQLQueryBuilder.Application.Tables;
 
 namespace SQLQueryBuilder.Infra.Repository;
 
-public sealed class TablesRepository(NpgsqlDataSource dataSource) : ITablesRepository
+public class TablesRepository(NpgsqlDataSource dataSource) : ITablesRepository
 {
     public async Task<IReadOnlyList<string>> GetTablesAsync(
         GetTablesFilters filters,

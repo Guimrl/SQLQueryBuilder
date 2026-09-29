@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#132630">
+  <title>SQL Query Builder</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="brand-copy">
+        <strong>SQL Query Builder</strong>
+        <span>Consultas PostgreSQL, passo a passo</span>
+      </div>
+      <span class="header-badge">SELECT builder</span>
+    </header>
+
+    <main class="workspace">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">ÁREA DE TRABALHO / NOVA CONSULTA</p>
+          <h1 id="page-title">Monte sua consulta<br><em>com clareza.</em></h1>
+          <p class="hero-description">Escolha uma tabela, selecione os dados e defina filtros e ordenação. O SQL fica pronto para copiar.</p>
+        </div>
+        <div class="hero-graphic" aria-hidden="true">
+          <span class="graphic-line line-one"></span>
+          <span class="graphic-line line-two"></span>
+          <span class="graphic-line line-three"></span>
+          <span class="graphic-cursor"></span>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <div class="builder-column">
+          <section class="panel" aria-labelledby="source-title">
+            <div class="panel-heading">
+              <span class="step-number">01</span>
+              <div>
+                <h2 id="source-title">Origem dos dados</h2>
+                <p>Selecione uma tabela do esquema público.</p>
+              </div>
+            </div>
+            <div class="field-row">
+              <label for="table-select">Tabela</label>
+              <div class="table-picker">
+                <select id="table-select" disabled>
+                  <option value="">Carregando tabelas...</option>
+                </select>
+                <button class="icon-button" id="reload-tables" type="button" aria-label="Atualizar lista de tabelas" title="Atualizar tabelas">↻</button>
+              </div>
+              <p class="field-hint" id="table-hint">Conectando à API...</p>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="columns-title">
+            <div class="panel-heading">
+              <span class="step-number">02</span>
+              <div>
+                <h2 id="columns-title">Colunas do resultado</h2>
+                <p>Escolha o que aparecerá no SELECT.</p>
+              </div>
+            </div>
+            <label class="all-columns-option" for="all-columns">
+              <input id="all-columns" type="checkbox" checked disabled>
+              <span><strong>Todas as colunas</strong><small>Equivale a SELECT *</small></span>
+              <code>*</code>
+            </label>
+            <div class="column-list" id="column-list" aria-label="Colunas disponíveis">
+              <p class="empty-inline">Selecione uma tabela para ver suas colunas.</p>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="filters-title">
+            <div class="panel-heading with-action">
+              <span class="step-number">03</span>
+              <div>
+                <h2 id="filters-title">Condições</h2>
+                <p>Os filtros são combinados com AND.</p>
+              </div>
+              <button class="small-button" id="add-filter" type="button" disabled>+ Filtro</button>
+            </div>
+            <div class="rule-list" id="filter-list">
+              <p class="empty-inline">Nenhum filtro. A consulta incluirá todas as linhas.</p>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="order-title">
+            <div class="panel-heading with-action">
+              <span class="step-number">04</span>
+              <div>
+                <h2 id="order-title">Ordenação</h2>
+                <p>Defina a prioridade das colunas no ORDER BY.</p>
+              </div>
+              <button class="small-button" id="add-order" type="button" disabled>+ Coluna</button>
+            </div>
+            <div class="rule-list" id="order-list">
+              <p class="empty-inline">Sem ordenação definida.</p>
+            </div>
+          </section>
+
+          <button class="generate-button" id="generate" type="button" disabled>
+            <span>Gerar consulta SQL</span><span aria-hidden="true">↗</span>
+          </button>
+        </div>
+
+        <aside class="result-column" aria-labelledby="result-title">
+          <section class="result-panel">
+            <div class="result-heading">
+              <div><p class="eyebrow">RESULTADO</p><h2 id="result-title">Sua query</h2></div>
+              <span class="result-language">PostgreSQL</span>
+            </div>
+            <div class="code-container">
+              <div class="code-toolbar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>consulta.sql</span></div>
+              <pre id="sql-output" class="sql-output" aria-live="polite">-- Sua consulta aparecerá aqui.
+-- Comece selecionando uma tabela.</pre>
+            </div>
+            <button class="copy-button" id="copy-sql" type="button" disabled>Copiar SQL <span aria-hidden="true">⧉</span></button>
+            <p id="status" class="status-message" role="status" aria-live="polite">Aguardando uma tabela.</p>
+          </section>
+          <div class="tip-card">
+            <span class="tip-icon" aria-hidden="true">i</span>
+            <div><strong>Como funciona</strong><p>A consulta é gerada para revisão e cópia. Esta página não executa o SQL nem altera dados.</p></div>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <footer class="site-footer"><span>SQL Query Builder</span><span>HTML · CSS · JavaScript · .NET Web API</span></footer>
+  </div>
+</body>
+</html>
